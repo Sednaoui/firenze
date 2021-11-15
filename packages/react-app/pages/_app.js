@@ -20,7 +20,7 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   return (
-    <Web3Provider network="localhost">
+    <Web3Provider network="matic">
       <ThemeSwitcherProvider themeMap={themes} defaultTheme={prevTheme.current}>
         <>
           <Head>
