@@ -6,6 +6,8 @@ import { Row, Col, Card, Image, Avatar, Button, Modal } from "antd";
 import utilStyles from "../styles/utils.module.css";
 
 // TODO: get artist address from previous page of list of artists
+const tempArtistAddress = "";
+
 // TODO: get artisit ENS avatar and name if available
 const artisitAvatarURL =
   "https://storage.googleapis.com/sentinel-nft/raw-assets/c_0x72b6dc1003e154ac71c76d3795a3829cfd5e33b9_t_3270_raw_asset.jpeg";
