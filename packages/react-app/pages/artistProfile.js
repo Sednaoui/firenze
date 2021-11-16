@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
 import { Web3Context } from "../helpers/Web3Context";
+import { CommissionForm } from "../components";
 import axios from "axios";
-import { Row, Col, Card, Image, Avatar } from "antd";
+import { Row, Col, Card, Image, Avatar, Button, Modal } from "antd";
 import utilStyles from "../styles/utils.module.css";
 
 // TODO: get artist address from previous page of list of artists
@@ -57,12 +58,32 @@ function artistProfile() {
       console.error(error);
     });
 
+  // comssion request info modal
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   return (
     <div className="flex flex-1 flex-col h-screen w-full items-center">
       <div className="text-center" style={{ margin: 64 }}>
         <Avatar src={<Image src={artisitAvatarURL} />} size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }} />
         <h1 className={utilStyles.headingXl}>{artistName}</h1>
         <p>{tempArtistAddress}</p>
+        <Button onClick={showModal}>Comission</Button>
+        <Modal
+          title={`Commission ${artistName}`}
+          visible={isModalVisible}
+          onCancel={handleCancel}
+          okButtonProps={{ disabled: true }}
+        >
+          <CommissionForm />
+        </Modal>
       </div>
       <Row gutter={16}>{cards}</Row>
       <div className="text-center"></div>
