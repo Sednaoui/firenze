@@ -30,17 +30,23 @@ function artistProfile() {
     setNfts(response.nfts);
   }, []);
 
-      const nftCards = nfts.map(nft => {
+  const nftCards = nfts
+    ? nfts.map(nft => {
         if (nft.cached_file_url) {
           return (
             <Col span={8} key={nft.token_id}>
-          <Card key={nft.token_id} style={{ width: "25rem", height: "20" }} cover={<Image src={nft.cached_file_url} />}>
+              <Card
+                key={nft.token_id}
+                style={{ width: "25rem", height: "20" }}
+                cover={<Image src={nft.cached_file_url} />}
+              >
                 <Meta title={nft.name} description={nft.description} />
               </Card>
             </Col>
           );
         }
-      });
+      })
+    : "Artisit has no NFTs to display";
 
   // comssion request info modal
   const [isModalVisible, setIsModalVisible] = useState(false);
