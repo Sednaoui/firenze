@@ -37,3 +37,23 @@ export const easyMintingWithFileUpload = async (chain, name, description, mint_t
 
   return response;
 };
+
+export const getNFTsFromAccount = async (chain, account) => {
+  const response = await fetch(`${nftPortAPI}/accounts/${account}?chain=${chain}&include=metadata`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: NFT_PORT_AUTH,
+    },
+  })
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (res) {
+      // Handle the response
+      console.log(res, "response!!");
+      return res;
+    });
+
+  return response;
+};

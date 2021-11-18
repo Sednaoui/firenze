@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import { Web3Context } from "../helpers/Web3Context";
 import { CommissionForm } from "../components";
-import axios from "axios";
 import { Row, Col, Card, Image, Avatar, Button, Modal } from "antd";
+import { getNFTsFromAccount } from "../helpers/nftPortAPI";
 import utilStyles from "../styles/utils.module.css";
 
 // TODO: get artist address from previous page of list of artists
@@ -14,9 +14,6 @@ const artisitAvatarURL =
 
 const artistName = "Marc";
 
-// your NFT_PORT_AUTH token here..
-const NFT_PORT_AUTH = "";
-
 function artistProfile() {
   const web3 = useContext(Web3Context);
 
@@ -24,41 +21,26 @@ function artistProfile() {
 
   // options to get the artist's NFTs
   // TODO: change hardcoded chain from "polygon" to network received from web3
-  const options = {
-    method: "GET",
-    url: `https://api.nftport.xyz/v0/accounts/${tempArtistAddress}`,
-    params: { chain: "polygon", include: "metadata" },
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: NFT_PORT_AUTH,
-    },
-  };
-  const [cards, setCards] = useState([]);
+  const [nfts, setNfts] = useState([]);
 
   const { Meta } = Card;
 
-  axios
-    .request(options)
-    .then(function (response) {
-      const nfts = response.data.nfts;
+  React.useEffect(async () => {
+    const response = await getNFTsFromAccount("polygon", tempArtistAddress);
+    setNfts(response.nfts);
+  }, []);
 
       const nftCards = nfts.map(nft => {
         if (nft.cached_file_url) {
           return (
             <Col span={8} key={nft.token_id}>
-              <Card key={nft.token_id} style={{ width: "25rem" }} cover={<Image src={nft.cached_file_url} />}>
+          <Card key={nft.token_id} style={{ width: "25rem", height: "20" }} cover={<Image src={nft.cached_file_url} />}>
                 <Meta title={nft.name} description={nft.description} />
               </Card>
             </Col>
           );
         }
       });
-      setCards(nftCards);
-    })
-    .then(res => console.log(res))
-    .catch(function (error) {
-      console.error(error);
-    });
 
   // comssion request info modal
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -87,7 +69,7 @@ function artistProfile() {
           <CommissionForm />
         </Modal>
       </div>
-      <Row gutter={16}>{cards}</Row>
+      <Row gutter={16}>{nftCards}</Row>
       <div className="text-center"></div>
     </div>
   );
