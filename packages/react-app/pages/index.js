@@ -14,6 +14,10 @@ function Home() {
         <a href="/artistProfile" rel="noreferrer">
           Artist Profile
         </a>
+        <br />
+        <a href="/disegnoNFT" rel="noreferrer">
+          Disegno NFT
+        </a>
       </div>
     </div>
   );
