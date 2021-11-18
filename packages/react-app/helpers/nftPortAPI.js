@@ -3,7 +3,7 @@ const FormData = require("form-data");
 const nftPortAPI = "https://api.nftport.xyz/v0";
 const NFT_PORT_AUTH = "7603c99b-c997-4bb4-b723-9715c3b25d55";
 
-export const easyMintingWithFileUpload = (chain, name, description, mint_to_address, file) => {
+export const easyMintingWithFileUpload = async (chain, name, description, mint_to_address, file) => {
   const form = new FormData();
   form.append("file", file);
 
@@ -16,7 +16,7 @@ export const easyMintingWithFileUpload = (chain, name, description, mint_to_addr
     },
   };
 
-  fetch(
+  const response = await fetch(
     `${nftPortAPI}/mints/easy/files?` +
       new URLSearchParams({
         chain,
@@ -32,5 +32,8 @@ export const easyMintingWithFileUpload = (chain, name, description, mint_to_addr
     .then(function (responseJson) {
       // Handle the response
       console.log(responseJson);
+      return responseJson;
     });
+
+  return response;
 };
