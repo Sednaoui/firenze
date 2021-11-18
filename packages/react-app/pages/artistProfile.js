@@ -60,12 +60,7 @@ function artistProfile() {
         <h1 className={utilStyles.headingXl}>{artistName}</h1>
         <p>{tempArtistAddress}</p>
         <Button onClick={showModal}>Comission</Button>
-        <Modal
-          title={`Commission ${artistName}`}
-          visible={isModalVisible}
-          onCancel={handleCancel}
-          okButtonProps={{ disabled: true }}
-        >
+        <Modal title={`Commission ${artistName}`} visible={isModalVisible} onCancel={handleCancel} footer={null}>
           <CommissionForm />
         </Modal>
       </div>
