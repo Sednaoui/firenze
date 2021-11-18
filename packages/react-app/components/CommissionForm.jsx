@@ -1,10 +1,25 @@
 import React from "react";
 import { Form, Input, Button, Select, Upload } from "antd";
-import { InboxOutlined } from "@ant-design/icons";
+import { uploadFileIPFS, uploadMetaDataIPFS } from "../helpers/nftPortAPI";
 
 const CommissionForm = () => {
-  const onFinish = values => {
-    console.log("Success:", values);
+  const [loading, setLoading] = React.useState(false);
+
+  const onFinish = async values => {
+    setLoading(true);
+
+    const uploadFileResponse = await uploadFileIPFS(myFile);
+
+    const uploadMetaDataResponse = await uploadMetaDataIPFS(
+      values.type,
+      values.description,
+      uploadFileResponse.ipfs_url,
+    );
+    // TODO: Open stream transaction in smart contract. We will be sending a link from uploadMetaDataResponse.metadata_uri in the stream
+
+    setLoading(false);
+    // Show confirmation page of steaming open and information sent to the artisit
+    setVisible(false);
   };
 
   const onFinishFailed = errorInfo => {
@@ -27,11 +42,14 @@ const CommissionForm = () => {
     }
   };
 
-  const normFile = (e) => {
-    console.log('Upload event:', e);
+  const [myFile, setMyFile] = React.useState(null);
+
+  const normFile = e => {
+    console.log("Upload event:", e);
     if (Array.isArray(e)) {
       return e;
     }
+    setMyFile(e.target.files[0]);
     return e && e.fileList;
   };
 
@@ -54,20 +72,18 @@ const CommissionForm = () => {
         </Select>
       </Form.Item>
 
-      <Form.Item label="Description">
+      <Form.Item label="Description" name="description">
         <Input.TextArea />
       </Form.Item>
 
-      <Form.Item label="Dragger">
-        <Form.Item name="dragger" valuePropName="fileList" getValueFromEvent={normFile} noStyle>
-          <Upload.Dragger name="files" action="/upload.do">
-            <p className="ant-upload-drag-icon">
-              <InboxOutlined />
-            </p>
-            <p className="ant-upload-text">Click or drag file to this area to upload</p>
-            <p className="ant-upload-hint">Support for a single or bulk upload.</p>
-          </Upload.Dragger>
-        </Form.Item>
+      <Form.Item label="File">
+        <Input
+          type="file"
+          name="file"
+          onChange={normFile}
+          required
+          rules={[{ required: true, message: "please add a file to be your NFT" }]}
+        />
       </Form.Item>
 
       <Form.Item name="note" label="Total">
@@ -75,7 +91,7 @@ const CommissionForm = () => {
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" loading={loading}>
           Open Stream
         </Button>
       </Form.Item>

@@ -57,3 +57,56 @@ export const getNFTsFromAccount = async (chain, account) => {
 
   return response;
 };
+
+export const uploadFileIPFS = async file => {
+  const form = new FormData();
+  form.append("file", file);
+
+  const options = {
+    method: "POST",
+    body: form,
+    headers: {
+      Authorization: NFT_PORT_AUTH,
+    },
+  };
+
+  const response = await fetch(`${nftPortAPI}/files`, options)
+    .then(res => {
+      return res.json();
+    })
+    .then(responseJson => {
+      // Handle the response
+      return responseJson;
+    });
+
+  return response;
+};
+
+export const uploadMetaDataIPFS = async (name, description, file_url) => {
+  const data = {
+    name,
+    description,
+    file_url,
+  };
+  const options = {
+    method: "POST",
+    headers: {
+      Authorization: NFT_PORT_AUTH,
+    },
+    body: JSON.stringify(data),
+  };
+
+  const response = await fetch("https://api.nftport.xyz/v0/metadata", options)
+    .then(res => {
+      return res.json();
+    })
+    .then(responseJson => {
+      // Handle the response
+      return responseJson;
+    })
+    .catch(err => {
+      console.error(err);
+    });
+
+  return response;
+};
