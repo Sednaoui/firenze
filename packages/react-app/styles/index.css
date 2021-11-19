@@ -4,7 +4,10 @@
 @tailwind utilities;
 
 body {
+  padding: 0;
   margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 /* fix and override tailwind canvas default styling */
@@ -14,4 +17,13 @@ canvas {
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+* {
+  box-sizing: border-box;
 }
