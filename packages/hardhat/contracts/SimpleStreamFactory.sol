@@ -3,7 +3,7 @@ pragma solidity >=0.8.0;
 
 //import "hardhat/console.sol";
 
-contract SimpleSteamFactory {
+contract SimpleStreamFactory {
    struct Steam {
    address deployedContract;
    address toArtist;
