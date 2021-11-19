@@ -1,8 +1,11 @@
 import React from "react";
-import { Form, Input, Button, Select, Upload } from "antd";
+import { Form, Input, Button, Select } from "antd";
+import { Web3Context } from "../helpers/Web3Context";
 import { uploadFileIPFS, uploadMetaDataIPFS } from "../helpers/nftPortAPI";
 
 const CommissionForm = () => {
+  const web3 = React.useContext(Web3Context);
+
   const [loading, setLoading] = React.useState(false);
 
   const onFinish = async values => {
