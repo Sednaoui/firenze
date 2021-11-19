@@ -44,23 +44,21 @@ export function Web3Provider({ children, network = "localhost", DEBUG = true, NE
   const poktMainnetProvider = useMemo(() => {
     return navigator.onLine
       ? new ethers.providers.StaticJsonRpcProvider(
-          "https://eth-mainnet.gateway.pokt.network/v1/lb/611156b4a585a20035148406",
+          "https://polygon-mainnet.infura.io/v3/83361a4b8a7140f495b70082caeca358",
         )
       : null;
   }, [navigator.onLine]);
   const mainnetInfura = useMemo(() => {
     if (DEBUG) console.log("📡 Connecting to Mainnet Ethereum");
     return navigator.onLine
-      ? new ethers.providers.StaticJsonRpcProvider("https://mainnet.infura.io/v3/" + INFURA_ID)
+      ? new ethers.providers.StaticJsonRpcProvider("https://polygon-mainnet.infura.io/v3/83361a4b8a7140f495b70082caeca358")
       : null;
   }, [navigator.onLine]);
   const localProvider = useMemo(() => {
     // 🏠 Your local provider is usually pointed at your local blockchain
     const localProviderUrl = targetNetwork.rpcUrl;
     // as you deploy to other networks you can set PROVIDER=https://dai.poa.network in packages/react-app/.env
-    const localProviderUrlFromEnv = process.env.NEXT_PUBLIC_PROVIDER
-      ? process.env.NEXT_PUBLIC_PROVIDER
-      : localProviderUrl;
+    const localProviderUrlFromEnv = 'https://polygon-mainnet.infura.io/v3/83361a4b8a7140f495b70082caeca358';
     if (DEBUG) console.log("🏠 Connecting to provider:", localProviderUrlFromEnv);
     return new ethers.providers.StaticJsonRpcProvider(localProviderUrlFromEnv);
   }, []);
@@ -78,11 +76,11 @@ export function Web3Provider({ children, network = "localhost", DEBUG = true, NE
     });
 
     // WalletLink provider
-    const walletLinkProvider = walletLink.makeWeb3Provider(`https://mainnet.infura.io/v3/${INFURA_ID}`, 1);
+    const walletLinkProvider = walletLink.makeWeb3Provider(`https://polygon-mainnet.infura.io/v3/83361a4b8a7140f495b70082caeca358`, 137);
 
     // Portis ID: 6255fb2b-58c8-433b-a2c9-62098c05ddc9
     return new Web3Modal({
-      network: "mainnet", // Optional. If using WalletConnect on xDai, change network to "xdai" and add RPC info below for xDai chain.
+      network: "Polygon", // Optional. If using WalletConnect on xDai, change network to "xdai" and add RPC info below for xDai chain.
       cacheProvider: true, // optional
       theme: "light", // optional. Change to "dark" for a dark theme.
       providerOptions: {
@@ -203,6 +201,7 @@ export function Web3Provider({ children, network = "localhost", DEBUG = true, NE
   const yourMainnetBalance = useBalance(mainnetProvider, address);
 
   const contractConfig = { deployedContracts: deployedContracts || {}, externalContracts: externalContracts || {} };
+  console.log(" test test test"+ JSON.stringify(contractConfig));
 
   // Load in your local 📝 contract and read a value from it:
   const readContracts = useContractLoader(localProvider, contractConfig);

@@ -1042,12 +1042,12 @@ module.exports = {
   1: {
     contracts: {
       SIMPLESTREAMFACTORY: {
-        address: "",
+        address: "0xD75b0609ed51307E13bae0F9394b5f63A7f8b6A1",
         abi: SIMPLESTREAMFACTORYABI,
       },
       SIMPLESTREAM: {
         address: "",
-        abi: DAIABI,
+        abi: SIMPLESTREAMABI,
       },
       DAI: {
         address: "0x6B175474E89094C44Da98b954EedeAC495271d0F",

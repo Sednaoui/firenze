@@ -1,7 +1,13 @@
 import React from "react";
 import { Form, Input, Button, Select } from "antd";
-import { Web3Context } from "../helpers/Web3Context";
+import { Web3Context , Web3Consumer, Transactor, props, tx } from "../helpers/Web3Context";
 import { uploadFileIPFS, uploadMetaDataIPFS } from "../helpers/nftPortAPI";
+import { ethers } from "arb-ts/node_modules/ethers";
+
+import simpleStreamFactoryContractABI from "../contracts/SIMPLESTREAMFACTORYCONTRACTABI.json";
+import { textChangeRangeIsUnchanged } from "typescript";
+
+//const tx = Transactor(props.injectedProvider, props.gasPrice);
 
 const CommissionForm = () => {
   const web3 = React.useContext(Web3Context);
@@ -11,17 +17,37 @@ const CommissionForm = () => {
   const onFinish = async values => {
     setLoading(true);
 
-    const uploadFileResponse = await uploadFileIPFS(myFile);
+    // const uploadFileResponse = await uploadFileIPFS(myFile);
 
-    const uploadMetaDataResponse = await uploadMetaDataIPFS(
-      values.type,
-      values.description,
-      uploadFileResponse.ipfs_url,
-    );
+    // const uploadMetaDataResponse = await uploadMetaDataIPFS(
+    //   values.type,
+    //   values.description,
+    //   uploadFileResponse.ipfs_url,
+    // );
+
     // TODO: Open stream transaction in smart contract. We will be sending a link from uploadMetaDataResponse.metadata_uri in the stream
-
+    deploySimpleStream();
     setLoading(false);
     // Show confirmation page of steaming open and information sent to the artisit
+  };
+
+  async function deploySimpleStream() {
+    const writecontract = await web3.writeContracts;
+    console.log(writecontract);
+
+    const tans = web3.tx( writecontract.SimpleStreamFactory.createSimpleStream('0x999faBe933440FdfBc0344160280e09f97c96DAe', 10000, 10000, false, 124124, { value: 10000
+    }));
+
+    console.log(tans);
+
+    // const simpleStreamFactoryContract = await new ethers.Contract(
+    //   '0x999faBe933440FdfBc0344160280e09f97c96DAe',  
+    //   simpleStreamFactoryContractABI,
+    //  web3.userSigner);
+
+    //  const tx = await simpleStreamFactoryContract.allSimpleStreams(0);
+    //  console.log(tx);
+
   };
 
   const onFinishFailed = errorInfo => {
