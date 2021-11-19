@@ -19,7 +19,6 @@ const CommissionForm = () => {
 
     setLoading(false);
     // Show confirmation page of steaming open and information sent to the artisit
-    setVisible(false);
   };
 
   const onFinishFailed = errorInfo => {
