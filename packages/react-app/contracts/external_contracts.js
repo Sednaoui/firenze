@@ -1039,15 +1039,15 @@ const DAIABI = [
 
 // Mainnet DAI, Optimism and Arbitrium Rollup Contracts with local addresses
 module.exports = {
-  1: {
+  137: {
     contracts: {
       SIMPLESTREAMFACTORY: {
-        address: "",
+        address: "0x999faBe933440FdfBc0344160280e09f97c96DAe",
         abi: SIMPLESTREAMFACTORYABI,
       },
       SIMPLESTREAM: {
         address: "",
-        abi: DAIABI,
+        abi: SIMPLESTREAMABI,
       },
       DAI: {
         address: "0x6B175474E89094C44Da98b954EedeAC495271d0F",

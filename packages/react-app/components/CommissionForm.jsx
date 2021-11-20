@@ -2,11 +2,22 @@ import React from "react";
 import { Form, Input, Button, Select } from "antd";
 import { Web3Context } from "../helpers/Web3Context";
 import { uploadFileIPFS, uploadMetaDataIPFS } from "../helpers/nftPortAPI";
+import {ExampleUI} from "./ExampleUI"
+
 
 const CommissionForm = () => {
   const web3 = React.useContext(Web3Context);
 
   const [loading, setLoading] = React.useState(false);
+
+  const [transactionDeployment, setTransactiondeployment] = React.useState(false);
+
+  const [loadingStreamUI, setLoadingStreamUI] = React.useState(true);
+
+  const [amountToSend, setAmountToSend] = React.useState(0);
+
+  const [timeToSend, setTimeToSend] = React.useState(0);
+
 
   const onFinish = async values => {
     setLoading(true);
@@ -18,10 +29,27 @@ const CommissionForm = () => {
       values.description,
       uploadFileResponse.ipfs_url,
     );
+
+    deploySimpleStream(uploadMetaDataResponse);
     // TODO: Open stream transaction in smart contract. We will be sending a link from uploadMetaDataResponse.metadata_uri in the stream
 
     setLoading(false);
     // Show confirmation page of steaming open and information sent to the artisit
+  };
+
+  async function deploySimpleStream(uploadMetaDataResponse) {
+    const writecontract = await web3.writeContracts;
+    console.log(writecontract);
+
+    var frequency = 100000;
+    var cap = 100000;
+
+    const tans = web3.tx( writecontract.SIMPLESTREAMFACTORY.createSimpleStream('0x53be3420d2F2EC0C68cA0ec65FF6dc004Cc551f9', 100000, 10000, false, uploadMetaDataResponse, { value: 100000
+    }));
+
+    setTransactiondeployment(tans);
+    console.log("test test "+ transactionDeployment);
+    setLoadingStreamUI(false);
   };
 
   const onFinishFailed = errorInfo => {
@@ -35,12 +63,18 @@ const CommissionForm = () => {
     switch (value) {
       case "Portrait":
         form.setFieldsValue({ note: "3 ETH in 7 days" });
+        setAmountToSend(3);
+        setTimeToSend(7);
         return;
       case "Landscape":
         form.setFieldsValue({ note: "5 ETH in 14 days" });
+        setAmountToSend(5);
+        setTimeToSend(14);
         return;
       case "Madonna":
         form.setFieldsValue({ note: "1.5 ETH in 5 days" });
+        setAmountToSend(1.5);
+        setTimeToSend(5);
     }
   };
 
@@ -56,6 +90,7 @@ const CommissionForm = () => {
   };
 
   return (
+<div>
     <Form
       form={form}
       name="commission"
@@ -98,6 +133,17 @@ const CommissionForm = () => {
         </Button>
       </Form.Item>
     </Form>
+    <div>
+      <ExampleUI
+      isLoading={loadingStreamUI}
+      loadingStreamUI = {transactionDeployment}
+      amountToSend = {amountToSend}
+      timeToSend = {timeToSend}
+      />
+      
+    </div>
+   
+</div>
   );
 };
 
