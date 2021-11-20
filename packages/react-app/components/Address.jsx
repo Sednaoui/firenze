@@ -2,7 +2,6 @@ import { Skeleton, Typography } from "antd";
 import React from "react";
 import Blockies from "react-blockies";
 import { useThemeSwitcher } from "react-css-theme-switcher";
-import { useLookupAddress } from "eth-hooks/dapps/ens";
 
 // changed value={address} to address={address}
 
@@ -37,8 +36,6 @@ const blockExplorerLink = (address, blockExplorer) =>
 export default function Address(props) {
   const address = props.value || props.address;
 
-  const ens = useLookupAddress(props.ensProvider, address);
-
   const { currentTheme } = useThemeSwitcher();
 
   if (!address) {
@@ -51,12 +48,7 @@ export default function Address(props) {
 
   let displayAddress = address.substr(0, 6);
 
-  const ensSplit = ens && ens.split(".");
-  const validEnsCheck = ensSplit && ensSplit[ensSplit.length - 1] === "eth";
-
-  if (validEnsCheck) {
-    displayAddress = ens;
-  } else if (props.size === "short") {
+  if (props.size === "short") {
     displayAddress += "..." + address.substr(-4);
   } else if (props.size === "long") {
     displayAddress = address;
