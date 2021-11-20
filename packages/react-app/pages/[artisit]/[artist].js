@@ -1,23 +1,26 @@
 import React, { useContext, useState } from "react";
-import { Web3Context } from "../helpers/Web3Context";
-import { CommissionForm } from "../components";
+import { Web3Context } from "../../helpers/Web3Context";
+import { CommissionForm } from "../../components";
 import { Row, Col, Card, Image, Avatar, Button, Modal } from "antd";
-import { getNFTsFromAccount } from "../helpers/nftPortAPI";
-import utilStyles from "../styles/utils.module.css";
-
-// TODO: get artist address from previous page of list of artists
-const tempArtistAddress = "";
-
-// TODO: get artisit ENS avatar and name if available
-const artisitAvatarURL =
-  "https://storage.googleapis.com/sentinel-nft/raw-assets/c_0x72b6dc1003e154ac71c76d3795a3829cfd5e33b9_t_3270_raw_asset.jpeg";
-
-const artistName = "Marc";
+import { getNFTsFromAccount } from "../../helpers/nftPortAPI";
+import utilStyles from "../../styles/utils.module.css";
+import { useRouter } from "next/router";
 
 function artistProfile() {
   const web3 = useContext(Web3Context);
+  const router = useRouter();
+  const { artist } = router.query;
 
-  console.log(`🗄 web3 context:`, web3);
+  // TODO: get artisit ENS avatar and name if available
+  let artisitAvatarURL = "https://www.larvalabs.com/cryptopunks/cryptopunk0499.png?customColor=638596";
+  let artistName = "";
+
+  if (artist === "0x53be3420d2F2EC0C68cA0ec65FF6dc004Cc551f9") {
+    artisitAvatarURL =
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Michelangelo_Daniele_da_Volterra_%28dettaglio%29.jpg/800px-Michelangelo_Daniele_da_Volterra_%28dettaglio%29.jpg";
+
+    artistName = "michelangelobuonarroti.eth";
+  }
 
   // options to get the artist's NFTs
   // TODO: change hardcoded chain from "polygon" to network received from web3
@@ -26,9 +29,9 @@ function artistProfile() {
   const { Meta } = Card;
 
   React.useEffect(async () => {
-    const response = await getNFTsFromAccount("polygon", tempArtistAddress);
+    const response = await getNFTsFromAccount("polygon", artist);
     setNfts(response.nfts);
-  }, []);
+  }, [artist]);
 
   const nftCards = nfts
     ? nfts.map(nft => {
@@ -64,7 +67,6 @@ function artistProfile() {
       <div className="text-center" style={{ margin: 64 }}>
         <Avatar src={<Image src={artisitAvatarURL} />} size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }} />
         <h1 className={utilStyles.headingXl}>{artistName}</h1>
-        <p>{tempArtistAddress}</p>
         <Button onClick={showModal}>Comission</Button>
         <Modal title={`Commission ${artistName}`} visible={isModalVisible} onCancel={handleCancel} footer={null}>
           <CommissionForm />

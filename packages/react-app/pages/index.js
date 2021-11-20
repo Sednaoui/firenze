@@ -4,11 +4,18 @@ import { Web3Context } from "../helpers/Web3Context";
 import styles from "../styles/Home.module.css";
 import { curatedImages } from "../public/images/images";
 import PhotoGallery from "../components/PhotoGallery";
+import { useRouter } from "next/router";
 
 function Home() {
   const web3 = useContext(Web3Context);
+  const router = useRouter();
 
   console.log(`🗄 web3 context:`, web3);
+
+  const handleClick = value => {
+    const creatorAddress = value.attributes.creator_address.nodeValue;
+    router.push(`./artisit/${creatorAddress}`);
+  };
 
   return (
     <div className={styles.container}>
@@ -22,7 +29,7 @@ function Home() {
           <a href="google.com"> CryptoPunk</a>
         </p>
       </main>
-      <PhotoGallery photos={curatedImages} />
+      <PhotoGallery photos={curatedImages} onPhotoClick={handleClick} />
     </div>
   );
 }

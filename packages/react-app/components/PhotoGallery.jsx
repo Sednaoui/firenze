@@ -2,10 +2,10 @@ import React from "react";
 import Gallery from "react-photo-gallery";
 
 const PhotoGallery = props => {
-  const onPhotoClick = event => {
-    console.log(event.target.src);
+  const passData = event => {
+    props.onPhotoClick(event.target);
   };
-  return <Gallery photos={props.photos} onClick={onPhotoClick} />;
+  return <Gallery photos={props.photos} onClick={passData} />;
 };
 
 export default PhotoGallery;
