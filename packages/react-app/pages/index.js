@@ -25,7 +25,8 @@ function Home() {
         </h1>
         <p className={styles.description}>
           <br />
-          Commission artists for <a href="">Protraits</a>, <a href="">Madonnas</a> or your very own
+          Commission artists for <a href="">Protraits</a>,
+          <a href="./artisit/0x53be3420d2F2EC0C68cA0ec65FF6dc004Cc551f9"> Madonnas</a> or your very own
           <a href="google.com"> CryptoPunk</a>
         </p>
       </main>
