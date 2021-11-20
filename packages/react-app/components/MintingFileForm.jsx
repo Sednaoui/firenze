@@ -53,6 +53,7 @@ const MintingFileForm = () => {
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
+      size="large"
     >
       <Form.Item name="title" label="Title">
         <Input placeholder="La Joconde" />
@@ -74,7 +75,7 @@ const MintingFileForm = () => {
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
         <Button type="primary" htmlType="submit" loading={loading}>
-          Disegno NFT
+          Mint NFT
         </Button>
       </Form.Item>
 

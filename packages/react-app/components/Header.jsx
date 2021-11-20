@@ -36,9 +36,6 @@ export default function Header({ children, home }) {
             <PageHeader title="Firenze" subTitle="commission art from master artists" style={{ cursor: "pointer" }} />
           </a>
         </BaseLink>
-        <BaseLink href="/disegnoNFT">
-          <a className={styles.backToHomeItem}>Artist Space</a>
-        </BaseLink>
       </div>
       <main>{children}</main>
     </div>

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Contract } from "../components";
+import { BaseLink } from "../components";
 import { Web3Context } from "../helpers/Web3Context";
 import styles from "../styles/Home.module.css";
 import { curatedImages } from "../public/images/images";
@@ -31,6 +31,11 @@ function Home() {
         </p>
       </main>
       <PhotoGallery photos={curatedImages} onPhotoClick={handleClick} />
+      <main className={styles.footer}>
+        <BaseLink href="/disegnoNFT">
+          <a className={styles.title}>Artist Space</a>
+        </BaseLink>
+      </main>
     </div>
   );
 }
