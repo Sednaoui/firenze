@@ -71,7 +71,7 @@ export function NFTTransferModule({ isArtist, nftId }) {
             <Row>
               <Col span={20}>
                 <a href={tx.transaction_external_url} rel="noopener noreferrer" target="_blank">
-                  {tx.transaction_external_url}
+                  Transaction on PolygonScan
                 </a>
               </Col>
               <Col>
