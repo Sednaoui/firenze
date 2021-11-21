@@ -4,7 +4,7 @@
 
 🧪 Quickly experiment with Solidity using a frontend that adapts to your smart contract:
 
-![image](https://user-images.githubusercontent.com/2653167/124158108-c14ca380-da56-11eb-967e-69cde37ca8eb.png)
+![image](https://dl.airtable.com/.attachments/472f81c62b4e4528adf950754b9696be/a3ad4a5a/web3jam_banner.jpg)
 
 
 # 🏄‍♂️ Quick Start
