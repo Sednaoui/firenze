@@ -1,102 +1,43 @@
-# 🏗 Firenze
-
-> An App Designed To Allow Users To Commmision Work To Artists
-
-🧪 Quickly experiment with Solidity using a frontend that adapts to your smart contract:
-
 ![image](https://dl.airtable.com/.attachments/472f81c62b4e4528adf950754b9696be/a3ad4a5a/web3jam_banner.jpg)
 
+This repo is a submission to UniCodes 2021 Web3 Jam!
 
-# 🏄‍♂️ Quick Start
+# Commisioned Art Platforms
 
-Prerequisites: [Node](https://nodejs.org/en/download/) plus [Yarn](https://classic.yarnpkg.com/en/docs/install/) and [Git](https://git-scm.com/downloads)
+## Why We Built This 
 
-> clone/fork 🏗 scaffold-eth:
+Artists have historically been very limited in ways they can monetarily capitalize on their work. The places that have popped up which allow them to do so in the web2 world, have been entirely centralized with huge fees. Think about Etsy and Fiver. Both take a huge commission and an artist's reviews, identity, and transaction history are all stored in centralized databases which are not transferable between interfaces. If an artist is banned for producing a piece that is too provocative or even accidentally removed -  their entire history and revenue disappear instantly. 
 
-```bash
-git clone https://github.com/austintgriffith/scaffold-eth.git scaffold-nextjs
-```
+Additionally, Artists should be able to get portions of their commission as they work. They shouldn’t have to wait till the piece is produced to receive money. 
 
-> checkout the `scaffold-nextjs` branch
+For these reasons, we believe the combination of permissionless access, money streams, and persistent data allows for a new artistic renaissance to arise!
 
-```bash
-cd scaffold-nextjs
-git checkout scaffold-nextjs
-```
+## BreakDown Of User Flow:
 
-> install and start your 👷‍ Hardhat chain:
+### Here's how it works for a user:
+1. Commissioner visits the site and selects an artist they would like to get a piece from. They then choose between a few piece types, which vary in cost and time to create. After they start a new money stream by calling the **createSimpleStream function** within the **SimpleStreamFactory contract**.
 
-```bash
-yarn install
-yarn chain
-```
+2. Calling this function stores all the necessary data within an array of structs and deploys a new **SimpleStream contract** while also passing the money to pay the artist. This contract then begins making the funds accessible to withdrawal overtime for the specified artist.
 
-> in a second terminal window, 🛰 deploy your contract:
+### Here's how it works for an Artist:
 
-```bash
-cd scaffold-nextjs
-yarn deploy
-```
+1. After an artist has received a commission they will see a new stream appear under their profile page. Using the metadata stored within the **SimpleStreamFactory contract** they will draw a painting to the specification of the commissioner. Once they are done drawing, they will use the Mint NFT function on our site and then the Transfer Functionality to send it to the commissioner.
 
-> in a third terminal window, start your 📱 frontend:
+2. After this is complete, and the specified amount of time has passed, they can go to their profile page and withdraw the money from the **SimpleStream contract.**
 
-```bash
-cd scaffold-nextjs
-yarn start
-```
+ ## The Implementation: Contract Factories and more!
 
-🔏 Edit your smart contract `YourContract.sol` in `packages/hardhat/contracts`
+The contract consists of two distinct pieces. The first is a contract factory which we deployed on Polygon and is linked directly to the site. While this contract deploys all the money streams, it also has important functions for storing information for the site. This contract stores all the information about open money streams including a link to the IPFS CID which contains the description and sample of the picture passed to the artist for drawing. It also stores the address of where the individual money stream is stored, allowing the site to directly interact with those.
 
-📝 Edit your frontend `index.js` in `packages/react-app/src/pages`
-
-💼 Edit your deployment scripts in `packages/hardhat/deploy`
-
-📱 Open http://localhost:3000 to see the app
-
-# 📚 Documentation
-
-Documentation, tutorials, challenges, and many more resources, visit: [docs.scaffoldeth.io](https://docs.scaffoldeth.io)
-
-# 🔭 Learning Solidity
-
-📕 Read the docs: https://docs.soliditylang.org
-
-📚 Go through each topic from [solidity by example](https://solidity-by-example.org) editing `YourContract.sol` in **🏗 scaffold-eth**
-
-- [Primitive Data Types](https://solidity-by-example.org/primitives/)
-- [Mappings](https://solidity-by-example.org/mapping/)
-- [Structs](https://solidity-by-example.org/structs/)
-- [Modifiers](https://solidity-by-example.org/function-modifier/)
-- [Events](https://solidity-by-example.org/events/)
-- [Inheritance](https://solidity-by-example.org/inheritance/)
-- [Payable](https://solidity-by-example.org/payable/)
-- [Fallback](https://solidity-by-example.org/fallback/)
-
-📧 Learn the [Solidity globals and units](https://solidity.readthedocs.io/en/v0.6.6/units-and-global-variables.html)
-
-# 🛠 Buidl
-
-Check out all the [active branches](https://github.com/austintgriffith/scaffold-eth/branches/active), [open issues](https://github.com/austintgriffith/scaffold-eth/issues), and join/fund the 🏰 [BuidlGuidl](https://BuidlGuidl.com)!
-
-  
- - 🚤  [Follow the full Ethereum Speed Run](https://medium.com/@austin_48503/%EF%B8%8Fethereum-dev-speed-run-bd72bcba6a4c)
+The second key piece in this contract duo is the individual stream contract. This stores the logic for ensuring that an Artist receives their money over a period originally specified by the commissioner. It also contains a withdrawal function which the artist must call to move the streamed funds from the contract to their address. During the design process, we had considered implementing SuperFluids money streaming primitives instead of our Contracts as this would remove the requirement of the artist calling a withdrawal function, however, it would then still require the commissioner to change their Matic/Eth to MaticX or EthX.
 
 
- - 🎟  [Create your first NFT](https://github.com/austintgriffith/scaffold-eth/tree/simple-nft-example)
- - 🥩  [Build a staking smart contract](https://github.com/austintgriffith/scaffold-eth/tree/challenge-1-decentralized-staking)
- - 🏵  [Deploy a token and vendor](https://github.com/austintgriffith/scaffold-eth/tree/challenge-2-token-vendor)
- - 🎫  [Extend the NFT example to make a "buyer mints" marketplace](https://github.com/austintgriffith/scaffold-eth/tree/buyer-mints-nft)
- - 🎲  [Learn about commit/reveal](https://github.com/austintgriffith/scaffold-eth/tree/commit-reveal-with-frontend)
- - ✍️  [Learn how ecrecover works](https://github.com/austintgriffith/scaffold-eth/tree/signature-recover)
- - 👩‍👩‍👧‍👧  [Build a multi-sig that uses off-chain signatures](https://github.com/austintgriffith/scaffold-eth/tree/meta-multi-sig)
- - ⏳  [Extend the multi-sig to stream ETH](https://github.com/austintgriffith/scaffold-eth/tree/streaming-meta-multi-sig)
- - ⚖️  [Learn how a simple DEX works](https://medium.com/@austin_48503/%EF%B8%8F-minimum-viable-exchange-d84f30bd0c90)
- - 🦍  [Ape into learning!](https://github.com/austintgriffith/scaffold-eth/tree/aave-ape)
+*Permissionless Access. Money Streams. Persistent Data. ===> ===> ARTISTIC RENAISSANCE!*
 
-# 💬 Support Chat
+----------------------------------------------------------------------------------------
 
-Join the telegram [support chat 💬](https://t.me/joinchat/KByvmRe5wkR-8F_zz6AjpA) to ask questions and find others building with 🏗 scaffold-eth!
+`contracts/` contains the bond contracts.
 
----
+`test/` demonstrates their usage.
 
-🙏 Please check out our [Gitcoin grant](https://gitcoin.co/grants/2851/scaffold-eth) too!
+`yarn install && yarn test` to test the contracts.
