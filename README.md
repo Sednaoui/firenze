@@ -37,7 +37,7 @@ The second key piece in this contract duo is the individual stream contract. Thi
 
 NFTS are uploaded using NFTPort and stored in IPFS.
 
-NFTport is also used to stream images from IPFS.
+NFTPort is also used to stream images from IPFS.
 
 Info about an art peice that needs to be commisioned is also stored in IPFS so the Artist can view it from anywhere in a decentralized manner.
 
