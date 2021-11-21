@@ -40,4 +40,4 @@ The second key piece in this contract duo is the individual stream contract. Thi
 
 `test/` demonstrates their usage.
 
-`yarn install && yarn test` to test the contracts.
+`yarn install && yarn start/' to run the site
