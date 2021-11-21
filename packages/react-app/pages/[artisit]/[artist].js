@@ -1,15 +1,18 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Web3Context } from "../../helpers/Web3Context";
 import { CommissionForm } from "../../components";
 import { Row, Col, Card, Image, Avatar, Button, Modal } from "antd";
 import { getNFTsFromAccount } from "../../helpers/nftPortAPI";
 import utilStyles from "../../styles/utils.module.css";
 import { useRouter } from "next/router";
+import NFTTransferModule from "../../components/NFTTransferModule";
 
 function artistProfile() {
   const web3 = useContext(Web3Context);
   const router = useRouter();
   const { artist } = router.query;
+  const [isArtist, setIsArtist] = useState(false);
+
 
   // TODO: get artisit ENS avatar and name if available
   let artisitAvatarURL = "https://www.larvalabs.com/cryptopunks/cryptopunk0499.png?customColor=638596";
@@ -31,6 +34,10 @@ function artistProfile() {
   React.useEffect(async () => {
     const response = await getNFTsFromAccount("polygon", artist);
     setNfts(response.nfts);
+    if ("0x53be3420d2F2EC0C68cA0ec65FF6dc004Cc551f9" == "0x53be3420d2F2EC0C68cA0ec65FF6dc004Cc551f9"){
+      setIsArtist(true);
+      //hard Coded for specific address currently
+    }
   }, [artist]);
 
   const nftCards = nfts
@@ -44,6 +51,11 @@ function artistProfile() {
                 cover={<Image src={nft.cached_file_url} />}
               >
                 <Meta title={nft.name} description={nft.description} />
+                
+                  <br></br>
+                <NFTTransferModule
+                isArtist={isArtist}
+                nftId={nft.token_id}/>
               </Card>
             </Col>
           );

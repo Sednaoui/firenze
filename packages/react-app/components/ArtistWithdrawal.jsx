@@ -1,7 +1,7 @@
 import { SyncOutlined } from "@ant-design/icons";
 import { utils } from "ethers";
 import { Button, Card, DatePicker, Divider, Input, Progress, Slider, Spin, Switch } from "antd";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Address, Balance} from "../components";
 import { ethers } from "arb-ts/node_modules/ethers";
 import tokenabi from "../contracts/GLDToken.json";
@@ -15,6 +15,13 @@ export function ArtistWithdrawal() {
   const [newPurpose, setNewPurpose] = useState("loading...");
   const [isLoading, setIsLoading] = useState(true);
   const [addressArray, setAddressArray] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+        await findArtistStreams();
+    }
+    fetchData();
+  }, []);
 
   async function findArtistStreams() {
     let addressArrayLocal = [];
@@ -45,9 +52,6 @@ export function ArtistWithdrawal() {
   }
   return (
     <div class="flex-container"  align="center">
-        <Button type="primary" onClick={() => {findArtistStreams();}}>
-          Mint NFT
-        </Button>
         <div>
             <ArtistWithdrawalGrid 
             isLoading={isLoading}
