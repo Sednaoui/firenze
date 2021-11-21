@@ -17,7 +17,7 @@ const MintingFileForm = () => {
 
   const onFinish = async values => {
     setLoading(true);
-    const response = await easyMintingWithFileUpload("rinkeby", values.title, values.description, web3.address, myFile);
+    const response = await easyMintingWithFileUpload("polygon", values.title, values.description, web3.address, myFile);
 
     setIsModalVisible(true);
     setTX(response);

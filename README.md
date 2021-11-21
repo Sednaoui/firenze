@@ -1,6 +1,6 @@
 ![image](https://www.bernardbeneito.com/wp-content/uploads/2018/03/italian-renaissance-wall-art-within-recent-renaissance-art-school-of-athens-philosophy-wall-raphael.jpg)
 
-This repo is a submission to Jam 2021 Web3 Jam!
+This repo is a submission to Web3 Jam Hackathon 2021!
 
 # Firenze, a commisoned art platform for users and artists
 

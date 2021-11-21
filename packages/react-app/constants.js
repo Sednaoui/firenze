@@ -1,5 +1,5 @@
 // MY INFURA_ID, SWAP IN YOURS FROM https://infura.io/dashboard/ethereum
-export const INFURA_ID = "83361a4b8a7140f495b70082caeca358";
+export const INFURA_ID = "7ce42d92316d41c7a60100949be6adad";
 
 // MY ETHERSCAN_ID, SWAP IN YOURS FROM https://etherscan.io/myapikey
 export const ETHERSCAN_KEY = "PSW8C433Q667DVEX5BCRMGNAH9FSGFZ7Q8";
@@ -70,7 +70,7 @@ export const NETWORKS = {
     chainId: 137,
     price: 1,
     gasPrice: 1000000000,
-    rpcUrl: "https://polygon-mainnet.infura.io/v3/83361a4b8a7140f495b70082caeca358",
+    rpcUrl: "https://polygon-mainnet.infura.io/v3/7ce42d92316d41c7a60100949be6adad",
     faucet: "https://faucet.matic.network/",
     blockExplorer: "https://explorer-mainnet.maticvigil.com//",
   },
