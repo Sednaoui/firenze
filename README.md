@@ -2,7 +2,7 @@
 
 This repo is a submission to UniCodes 2021 Web3 Jam!
 
-# Commisioned Art Platforms
+# Firenze, a commisoned art platform for users and artists
 
 ## Why We Built This 
 
