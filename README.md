@@ -1,6 +1,6 @@
-# 🏗 Scaffold-ETH + ▲ Next.js
+# 🏗 Firenze
 
-> everything you need to build on Ethereum! 🚀
+> An App Designed To Allow Users To Commmision Work To Artists
 
 🧪 Quickly experiment with Solidity using a frontend that adapts to your smart contract:
 
