@@ -13,7 +13,6 @@ function artistProfile() {
   const { artist } = router.query;
   const [isArtist, setIsArtist] = useState(false);
 
-
   // TODO: get artisit ENS avatar and name if available
   let artisitAvatarURL = "https://www.larvalabs.com/cryptopunks/cryptopunk0499.png?customColor=638596";
   let artistName = "";
@@ -34,11 +33,10 @@ function artistProfile() {
   React.useEffect(async () => {
     const response = await getNFTsFromAccount("polygon", artist);
     setNfts(response.nfts);
-    if ("0x53be3420d2F2EC0C68cA0ec65FF6dc004Cc551f9" == "0x53be3420d2F2EC0C68cA0ec65FF6dc004Cc551f9"){
+    if (web3.address && artist && web3.address === artist) {
       setIsArtist(true);
-      //hard Coded for specific address currently
     }
-  }, [artist]);
+  }, [artist, web3.address]);
 
   const nftCards = nfts
     ? nfts.map(nft => {
@@ -51,11 +49,9 @@ function artistProfile() {
                 cover={<Image src={nft.cached_file_url} />}
               >
                 <Meta title={nft.name} description={nft.description} />
-                
-                  <br></br>
-                <NFTTransferModule
-                isArtist={isArtist}
-                nftId={nft.token_id}/>
+
+                <br></br>
+                <NFTTransferModule isArtist={isArtist} nftId={nft.token_id} />
               </Card>
             </Col>
           );
