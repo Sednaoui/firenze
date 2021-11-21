@@ -33,7 +33,7 @@ The second key piece in this contract duo is the individual stream contract. Thi
 
 ![Flowchart (1)](https://user-images.githubusercontent.com/914117/142778098-b7f0d2b3-0a0c-4fff-8652-4582cc4f640a.png)
 
-##How the Site works
+## Integrations with IPFS and NFTPort
 
 NFTS are uploaded using NFTPort and stored in IPFS.
 
