@@ -45,7 +45,7 @@ Info about an art peice that needs to be commisioned is also stored in IPFS so t
 
 ----------------------------------------------------------------------------------------
 
-`contracts/` contains the bond contracts.
+`contracts/` contains the simpleStreamFactory and SimpleStream contracts.
 
 `test/` demonstrates their usage.
 
