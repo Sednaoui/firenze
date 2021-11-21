@@ -33,6 +33,13 @@ The second key piece in this contract duo is the individual stream contract. Thi
 
 ![Flowchart (1)](https://user-images.githubusercontent.com/914117/142778098-b7f0d2b3-0a0c-4fff-8652-4582cc4f640a.png)
 
+##How the Site works
+
+NFTS are uploaded using NFTPort and stored in IPFS.
+
+NFTport is also used to stream images from IPFS.
+
+Info about an art peice that needs to be commisioned is also stored in IPFS so the Artist can view it from anywhere in a decentralized manner.
 
 *Permissionless Access. Money Streams. Persistent Data. ===> ===> ARTISTIC RENAISSANCE!*
 
