@@ -2,9 +2,11 @@ import React, { useContext, useState } from "react";
 import { MintingFileForm } from "../components";
 import utilStyles from "../styles/utils.module.css";
 import styles from "../styles/Home.module.css";
+import ArtistWithdrawal from "../components/ArtistWithdrawal"
 
 const DisegnoNFT = () => {
   return (
+  <div>
     <div
       className="flex flex-1 flex-col w-full items-center"
       style={{
@@ -17,7 +19,16 @@ const DisegnoNFT = () => {
         </h1>
       </div>
       <MintingFileForm />
+
+      
     </div>
+
+    <div>
+       <ArtistWithdrawal/> 
+      
+    </div>
+
+  </div>
   );
 };
 

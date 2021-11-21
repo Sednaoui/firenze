@@ -3,6 +3,8 @@ import { Form, Input, Button, Select } from "antd";
 import { Web3Context } from "../helpers/Web3Context";
 import { uploadFileIPFS, uploadMetaDataIPFS } from "../helpers/nftPortAPI";
 import {ExampleUI} from "./ExampleUI"
+import { ethers } from "arb-ts/node_modules/ethers";
+
 
 
 const CommissionForm = () => {
@@ -31,25 +33,32 @@ const CommissionForm = () => {
     );
 
     deploySimpleStream(uploadMetaDataResponse);
-    // TODO: Open stream transaction in smart contract. We will be sending a link from uploadMetaDataResponse.metadata_uri in the stream
 
     setLoading(false);
     // Show confirmation page of steaming open and information sent to the artisit
   };
 
   async function deploySimpleStream(uploadMetaDataResponse) {
-    const writecontract = await web3.writeContracts;
+    const writecontract = web3.writeContracts;
     console.log(writecontract);
 
-    var frequency = 100000;
-    var cap = 100000;
+    var frequency = timeToSend*24*60*60;
+    var amountsent = amountToSend*10^18
+    var stringAmountToSend = amountToSend.toString();
+    const overrides = {
+      value: ethers.utils.parseEther(stringAmountToSend),
+    }
 
-    const tans = web3.tx( writecontract.SIMPLESTREAMFACTORY.createSimpleStream('0x53be3420d2F2EC0C68cA0ec65FF6dc004Cc551f9', 100000, 10000, false, uploadMetaDataResponse, { value: 100000
-    }));
+
+    console.log("hello" + web3.address);
+    const tans = await web3.tx(writecontract.SIMPLESTREAMFACTORY.createSimpleStream(web3.address, amountsent, frequency, false, uploadMetaDataResponse.metadata_uri , overrides));
 
     setTransactiondeployment(tans);
     console.log("test test "+ transactionDeployment);
     setLoadingStreamUI(false);
+
+ 
+
   };
 
   const onFinishFailed = errorInfo => {
@@ -62,17 +71,17 @@ const CommissionForm = () => {
   const OnTypeChange = value => {
     switch (value) {
       case "Portrait":
-        form.setFieldsValue({ note: "3 ETH in 7 days" });
+        form.setFieldsValue({ note: "3 MATIC in 7 days" });
         setAmountToSend(3);
         setTimeToSend(7);
         return;
       case "Landscape":
-        form.setFieldsValue({ note: "5 ETH in 14 days" });
+        form.setFieldsValue({ note: "5 MATIC in 14 days" });
         setAmountToSend(5);
         setTimeToSend(14);
         return;
       case "Madonna":
-        form.setFieldsValue({ note: "1.5 ETH in 5 days" });
+        form.setFieldsValue({ note: "1.5 MATIC in 5 days" });
         setAmountToSend(1.5);
         setTimeToSend(5);
     }
