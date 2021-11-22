@@ -2,7 +2,7 @@
 
 This repo is a submission to Web3 Jam Hackathon 2021!
 
-# Firenze, a commisoned art platform for users and artists
+# Firenze, a market for commissioned art using money steam payments
 
 ## Why We Built This 
 
