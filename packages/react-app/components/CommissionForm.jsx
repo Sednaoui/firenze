@@ -37,7 +37,7 @@ const CommissionForm = () => {
     const writecontract = web3.writeContracts;
     console.log(writecontract);
 
-    var amountsent = amountToSend * 10^18
+    var amountsent = amountToSend * 10 ^ 18
     var stringAmountToSend = amountToSend.toString();
     const overrides = {
       value: ethers.utils.parseEther(stringAmountToSend),
@@ -54,13 +54,13 @@ const CommissionForm = () => {
           overrides,
         ),
       );
-
-      setTransactiondeployment(response);
+      if (response) {
+        setTransactiondeployment(response);
+        setStreamUI(true);
+      }
       setLoading(false);
-      setStreamUI(true);
     } catch (error) {
       console.log(error);
-      setLoading(false);
     }
   }
 

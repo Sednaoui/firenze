@@ -1,12 +1,17 @@
 import { Progress } from "antd";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export function ExampleUI({ showStreamUI, tx, amountToSend, timeToSend }) {
   const [percent, setPercent] = useState(0);
 
   const [timeRemaining, setTimeRemaining] = useState(timeToSend);
+
+  useEffect(() => {
+    setTimeRemaining(timeToSend);
+  }, [timeToSend]);
+
   //settimeout - call every second
-  React.useEffect(() => {
+  useEffect(() => {
     if (showStreamUI && percent <= 100 && timeRemaining > 0) {
       setTimeout(() => {
         const dec = timeRemaining - 1;
