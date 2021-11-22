@@ -31,13 +31,22 @@ The contract consists of two distinct pieces. The first is a contract factory wh
 
 The second key piece in this contract duo is the individual stream contract. This stores the logic for ensuring that an Artist receives their money over a period originally specified by the commissioner. It also contains a withdrawal function which the artist must call to move the streamed funds from the contract to their address. During the design process, we had considered implementing SuperFluids money streaming primitives instead of our Contracts as this would remove the requirement of the artist calling a withdrawal function, however, it would then still require the commissioner to change their Matic/Eth to MaticX or EthX.
 
+![Flowchart (1)](https://user-images.githubusercontent.com/914117/142778098-b7f0d2b3-0a0c-4fff-8652-4582cc4f640a.png)
+
+## Integrations with IPFS and NFTPort
+
+NFTS are uploaded using NFTPort and stored in IPFS.
+
+NFTPort is also used to stream images from IPFS.
+
+Info about an art peice that needs to be commisioned is also stored in IPFS so the Artist can view it from anywhere in a decentralized manner.
 
 *Permissionless Access. Money Streams. Persistent Data. ===> ===> ARTISTIC RENAISSANCE!*
 
 ----------------------------------------------------------------------------------------
 
-`contracts/` contains the bond contracts.
+`contracts/` contains the simpleStreamFactory and SimpleStream contracts.
 
 `test/` demonstrates their usage.
 
-`yarn install && yarn test` to test the contracts.
+`yarn install && yarn start/' to run the site
