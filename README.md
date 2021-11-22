@@ -45,8 +45,8 @@ Info about an art peice that needs to be commisioned is also stored in IPFS so t
 
 ----------------------------------------------------------------------------------------
 
-`contracts/` contains the simpleStreamFactory and SimpleStream contracts.
+`packages/hardhat/contracts/` contains the simpleStreamFactory and SimpleStream contracts.
 
-`test/` demonstrates their usage.
+`packages/react-app/helpers/nftPortAPI` contains NFTPort api calls and IPFS storage
 
-`yarn install && yarn start/' to run the site
+`yarn install && yarn start` to run the site
